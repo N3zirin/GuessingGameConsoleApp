@@ -1,0 +1,37 @@
+using System;
+
+namespace AdvancedBinarySearch
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] sortedArray = { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47 };
+            Console.WriteLine("Enter the number to search:");
+
+            if (int.TryParse(Console.ReadLine(), out int target))
+            {
+                int result = BinarySearch(sortedArray, target, 0, sortedArray.Length - 1);
+                Console.WriteLine(result != -1 
+                    ? $"Element found at index {result}." 
+                    : "Element not found in the array.");
+            }
+            else
+            {
+                Console.WriteLine("Invalid input. Please enter a valid integer.");
+            }
+        }
+
+        static int BinarySearch(int[] array, int target, int left, int right)
+        {
+            if (left > right) return -1;
+
+            int mid = left + (right - left) / 2;
+
+            if (array[mid] == target) return mid;
+            if (array[mid] > target) return BinarySearch(array, target, left, mid - 1);
+
+            return BinarySearch(array, target, mid + 1, right);
+        }
+    }
+}
